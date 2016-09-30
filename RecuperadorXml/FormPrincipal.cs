@@ -5,7 +5,7 @@ using System.Windows.Forms;
 
 namespace RecuperadorXML
 {
-    public partial class Form1 : Form
+    public partial class FormPrincipal : Form
     {
         private string imgUrl = "";
         private XMLTool xmlt;
@@ -13,7 +13,7 @@ namespace RecuperadorXML
         private string nfeUrl = "http://www.nfe.fazenda.gov.br/portal/consulta.aspx?tipoConsulta=completa&tipoConteudo=XbSeqxE8pl8=";
         //private string ConsultaCompleta = "http://www.nfe.fazenda.gov.br/portal/consultaCompleta.aspx?tipoConteudo=XbSeqxE8pl8=";
 
-        public Form1()
+        public FormPrincipal()
         {
             InitializeComponent();
         }
@@ -33,7 +33,7 @@ namespace RecuperadorXML
                         captcha1 = ele.OuterHtml;
                         captcha = captcha1.Substring(177, captcha1.Length - 177);
                         imgUrl = captcha.Substring(0, captcha.Length - 2);
-                        pictureBox1.Image = util.Base64ToImage(imgUrl);
+                        pictureBoxCaptcha.Image = util.Base64ToImage(imgUrl);
 
                     }
                 }
@@ -50,15 +50,15 @@ namespace RecuperadorXML
 
         private void button2_Click(object sender, EventArgs e)
         {
-            util.ClearScr(label2, textBox1, textBox2);
+            util.ClearScr(labelDigitarDados, textBoxChaveNota, textBoxDigitarCaptcha);
             util.GetCaptcha();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             util.EnterSite();
-            util.CheckKey(textBox1);
-            util.CheckCaptcha(textBox2);
+            util.CheckKey(textBoxChaveNota);
+            util.CheckCaptcha(textBoxDigitarCaptcha);
             page.DocumentCompleted += new WebBrowserDocumentCompletedEventHandler(xmlt.DownloadXML);
             
             
@@ -73,7 +73,7 @@ namespace RecuperadorXML
 
                 if (ele.GetAttribute("name") == "ctl00$ContentPlaceHolder1$txtChaveAcessoCompleta")
                 {
-                    ele.SetAttribute("value", textBox1.Text);
+                    ele.SetAttribute("value", textBoxChaveNota.Text);
                 }
             }
         }
@@ -87,7 +87,7 @@ namespace RecuperadorXML
 
                 if (ele.GetAttribute("name") == "ctl00$ContentPlaceHolder1$txtCaptcha")
                 {
-                    ele.SetAttribute("value", textBox2.Text);
+                    ele.SetAttribute("value", textBoxDigitarCaptcha.Text);
                 }
             }
         }

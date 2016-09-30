@@ -20,6 +20,10 @@ namespace RecuperadorXML
 
         public void RenameXml()
         {
+
+            //string varSourcePath = Environment.CurrentDirectory + "\\";
+            //string temp = varSourcePath + "\\temp";
+
             string temp = "C:\\asatransf\\temp";
             string[] arquivos = Directory.GetFiles(temp);
             string xNome = "";
